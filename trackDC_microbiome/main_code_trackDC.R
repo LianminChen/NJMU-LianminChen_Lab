@@ -128,9 +128,9 @@ python SparCC.py $OUTPUT_PATH/Resamplings/permutation_$i.txt --cor_file=$OUTPUT_
 done
 python PseudoPvals.py $OUTPUT_PATH/real_cors_sparcc_sp_fg.txt $OUTPUT_PATH/Bootstraps/sim_cor_#.txt $BOOT_ITER -o $OUTPUT_PATH/pvals_two_sided_sp_fg.txt -t two_sided
 library(meta)
-TE=c(cor_lld,cor_500fg,cor_300ob,cor_ibd) #coefficient of certain edge in four cohorts
-TEse=c(sqrt((1-cor_lld^2)/(1135-2)),sqrt((1-cor_500fg^2)/(450-2)),sqrt((1-cor_300ob^2)/(298-2)),sqrt((1-cor_ibd^2)/(496-2)))  #calculate se of coefficient
+TE=c(cor_group1,cor_group2,cor_group3) #coefficient of certain edge
+TEse=c(sqrt((1-cor_group1^2)/(12-2)),sqrt((1-cor_group2^2)/(12-2)),sqrt((1-cor_group3^2)/(12-2)))  #calculate se of coefficient
 p_heterogeneity=metagen(TE,TEse)$pval.Q
-TE=c(0.5*log((1+cor_lld)/(1-cor_lld)),0.5*log((1+cor_fg)/(1-cor_fg)),0.5*log((1+cor_ob)/(1-cor_ob)),0.5*log((1+cor_ibd)/(1-cor_ibd))) #transfer spearman coefficient to z-score (based on Park E. & Lee Y. J., Communications in Statistics-Simulation and Computation, 2001.)
-TEse=c(1/sqrt(lld_n-3),1/sqrt(fg_n-3),1/sqrt(ob_n-3),1/sqrt(ibd_n-3)) #calculate se of z-score, lld_n represent non-zero pairs of certatin in lld (based on Park E. & Lee Y. J., Communications in Statistics-Simulation and Computation, 2001.)
+TE=c(0.5*log((1+cor_group1)/(1-cor_group1)),0.5*log((1+cor_group2)/(1-cor_group2)),0.5*log((1+cor_group3)/(1-cor_group3))) #transfer spearman coefficient to z-score (based on Park E. & Lee Y. J., Communications in Statistics-Simulation and Computation, 2001.)
+TEse=c(1/sqrt(group1_n-3),1/sqrt(group2_n-3),1/sqrt(group3_n-3)) #calculate se of z-score, group1_n represent non-zero pairs of certatin in group1 (based on Park E. & Lee Y. J., Communications in Statistics-Simulation and Computation, 2001.)
 p_heterogeneity=metagen(TE,TEse)$pval.Q
